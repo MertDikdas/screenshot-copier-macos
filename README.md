@@ -1,10 +1,17 @@
 # Screenshot Copier (macOS)
 
-This is the macOS version, there is windows version too.
-The purpose of the application is when you screenshot something and it saved to your clipboard, app will send it to your seconde device's clipboard.
-You should download this application to both devices and one of them will be reciever and one of them will be sender.
-When sender screenshot it will automaticly will send to receiver device's clipboard.
-Both devices can be windows or macos it doesn't matter. Just download right git repository
+This is the macOS version of Screenshot Copier.
+There is also a Windows version available.
+The purpose of the application is simple:
+When you take a screenshot on one device, the app automatically sends it to your second device's clipboard.
+You must install this application on both devices.
+One device will act as the Sender
+The other device will act as the Receiver
+When the sender takes a screenshot, it will automatically be transferred to the receiver’s clipboard.
+Both devices can be:
+Windows
+macOS
+It does not matter — just make sure you download the correct repository version for your operating system.
 
 ---
 
