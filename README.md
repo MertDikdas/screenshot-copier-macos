@@ -37,14 +37,14 @@ cd screenshot-copier-macos
 ## Install Dependencies
 Create a virtual environment (recommended):
 ```bash
-python3 -m venv venv
+python3 -m venv .venv
 source venv/bin/activate
 Install requirements:
 pip install -r requirements.txt
 ```
 ## Run in Development Mode
 ```bash
-python -m src/main.py
+python -m src.main.py
 ```
 
 ## Build Standalone Binary
