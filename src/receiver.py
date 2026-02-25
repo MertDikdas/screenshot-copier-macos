@@ -9,16 +9,17 @@ PORT = 5000
 PORT_TCP = 6000
 
 def copy_image_to_clipboard_from_bytes(img_bytes):
-    image = Image.open(BytesIO(img_bytes))
+    image = Image.open(BytesIO(img_bytes)).convert("RGBA")
 
     output = BytesIO()
-    image.convert("RGB").save(output,"BMP")
-    data = output.getvalue()[14:]
+    image.save(output, format="PNG")
+    png_data = output.getvalue()
+
     pb = NSPasteboard.generalPasteboard()
     pb.clearContents()
-    pb.setData_forType_(NSData.dataWithBytes_length_(data,len(data)),
+    pb.setData_forType_(NSData.dataWithBytes_length_(png_data, len(png_data)),
                         NSPasteboardTypePNG)
-    output.close()
+
 
     
 
@@ -83,5 +84,5 @@ def handleReceiver():
         connection = receiver_tcp_connection(addr)
         if connection ==False:
             handleReceiver()
-        time.sleep(0.5)
+        time.sleep(0.2)
     

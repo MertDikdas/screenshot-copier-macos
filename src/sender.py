@@ -4,13 +4,16 @@ from pathlib import Path
 from PIL import ImageGrab
 import hashlib
 import time
-import sys
+import io
 
 PORT = 5000
 PORT_TCP = 6000
 BROADCAST_IP = "192.168.1.255"
 
-TEMP_FILE = Path("/tmp/clipboard_image.png")
+current_dir = Path().resolve()
+
+TEMP_FILE = Path(current_dir / "screenshot.png")
+
 
 def get_image_hash(path: Path) -> str | None:
     if not path.exists():
@@ -49,17 +52,16 @@ def sender_tcp_connection(addr, file_path:Path):
     print("🖼 sended!")
 
 def clipboard_has_image() -> bool:
-    if sys.platform=="darwin":
-        result = subprocess.run(
-            ["pngpaste", str(TEMP_FILE)],
-            capture_output=True)
-        return result.returncode == 0
-    elif sys.platform== "win32":
-        img= ImageGrab.grabclipboard()
-        if img is None:
-            return false
-        img.save(TEMP_FILE,"PNG")
 
+    img = ImageGrab.grabclipboard()
+
+    if img:
+        buffer = io.BytesIO()
+        img.save(buffer, format="PNG")
+        image_bytes = buffer.getvalue()
+        if img:
+            img.save("screenshot.png", "PNG")
+        return True
     return False
 
 def handleSender():
@@ -73,5 +75,5 @@ def handleSender():
             if current_hash and current_hash != last_hash:
                 sender_tcp_connection(addr,TEMP_FILE)
                 last_hash = current_hash
-        time.sleep(0.5)
+        time.sleep(0.2)
 
