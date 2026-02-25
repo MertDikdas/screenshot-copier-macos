@@ -31,8 +31,8 @@ https://git-scm.com
 
 ## Clone the Repository
 ```bash
-git clone https://github.com/yourusername/screenshot-copier.git
-cd screenshot-copier
+git clone https://github.com/MertDikdas/screenshot-copier-macos.git
+cd screenshot-copier-macos
 ```
 ## Install Dependencies
 Create a virtual environment (recommended):
