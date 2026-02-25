@@ -1,6 +1,10 @@
 # Screenshot Copier (macOS)
 
-A lightweight command-line tool that processes screenshots and copies them directly to the macOS clipboard.
+This is the macOS version, there is windows version too.
+The purpose of the application is when you screenshot something and it saved to your clipboard app sends it to your seconde device's clipboard.
+You should download this application to both devices and one of them will be reciever and one of them will be sender.
+When sender screenshot it will automaticly will send to receiver device's clipboard.
+Both devices can be windows or macos it doesn't matter. Just download right git repository
 
 ---
 
