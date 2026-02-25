@@ -26,7 +26,7 @@ def sender_broadcast():
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
     sock.settimeout(1)  # ⬅️ 1 saniye bekle, sonra devam et
 
-    while True:
+    for i in range(0,200):
         sock.sendto(b"Discover", (BROADCAST_IP, PORT))
 
         try:
@@ -39,7 +39,7 @@ def sender_broadcast():
             continue
 #After broadcast make a tcp connection
 def sender_tcp_connection(addr, file_path:Path):
-    HOST = addr[0]   # Her yerden bağlantı kabul et
+    HOST = addr[0] 
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT_TCP))
