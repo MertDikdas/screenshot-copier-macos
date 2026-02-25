@@ -14,13 +14,13 @@ current_dir = Path().resolve()
 
 TEMP_FILE = Path(current_dir / "screenshot.png")
 
-
+#For hashing the image
 def get_image_hash(path: Path) -> str | None:
     if not path.exists():
         return None
     data = path.read_bytes()
     return hashlib.md5(data).hexdigest()
-
+#broadcast for find to other connection
 def sender_broadcast():
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
@@ -37,7 +37,7 @@ def sender_broadcast():
         except socket.timeout:
             print("No answer")
             continue
-
+#After broadcast make a tcp connection
 def sender_tcp_connection(addr, file_path:Path):
     HOST = addr[0]   # Her yerden bağlantı kabul et
 
@@ -51,8 +51,8 @@ def sender_tcp_connection(addr, file_path:Path):
         s.sendall(image_bytes)
     print("🖼 sended!")
 
+#Checks the clipboard for is it same image
 def clipboard_has_image() -> bool:
-
     img = ImageGrab.grabclipboard()
 
     if img:
@@ -64,6 +64,7 @@ def clipboard_has_image() -> bool:
         return True
     return False
 
+#Handles sender side
 def handleSender():
     addr = sender_broadcast()
 

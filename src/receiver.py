@@ -8,6 +8,7 @@ from Foundation import NSData
 PORT = 5000
 PORT_TCP = 6000
 
+#Copies recieved file to clipboard
 def copy_image_to_clipboard_from_bytes(img_bytes):
     image = Image.open(BytesIO(img_bytes)).convert("RGBA")
 
@@ -21,8 +22,7 @@ def copy_image_to_clipboard_from_bytes(img_bytes):
                         NSPasteboardTypePNG)
 
 
-    
-
+#Waits for connection with another screenshot-copier application
 def receiver_broadcast():
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.bind(("", PORT))
@@ -38,13 +38,14 @@ def receiver_broadcast():
     sock.close()
     return addr
 
+#After broadcast it make a tcp connection between each other
 def receiver_tcp_connection(addr)->bool:
     HOST = "0.0.0.0"
-
+    #Socket creation
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.bind((HOST, PORT_TCP))
     server.listen()
-
+    #Timeout for long waits
     server.settimeout(1000) 
     print("Waiting for connection")
     try:
@@ -55,6 +56,7 @@ def receiver_tcp_connection(addr)->bool:
         return False
     
     with conn:
+        #Reads header
         header = b""
         while not header.endswith(b"\n"):
             chunk = conn.recv(1)
@@ -65,19 +67,19 @@ def receiver_tcp_connection(addr)->bool:
         header = header.decode().strip()
         parts = header.split()
 
-
+        #image size
         image_size = int(parts[1])
-
+        #Reads the data
         data = b""
         while len(data) < image_size:
             chunk = conn.recv(min(4096, image_size - len(data)))
             if not chunk:
                 return False
             data += chunk
-
+        #copy to clipboard
         copy_image_to_clipboard_from_bytes(data)
         print("Screenshot received.")
-
+#handles receiver functions
 def handleReceiver():
     addr = receiver_broadcast()
     while(True):
