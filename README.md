@@ -1,10 +1,10 @@
-# 📸 Screenshot Copier (macOS)
+# Screenshot Copier (macOS)
 
 A lightweight command-line tool that processes screenshots and copies them directly to the macOS clipboard.
 
 ---
 
-## 🧰 System Requirements
+## System Requirements
 
 - macOS 11+
 - Python 3.9+
